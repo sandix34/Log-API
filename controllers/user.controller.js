@@ -25,9 +25,7 @@ exports.userCreate = async (req, res, next) => {
             if (err) {
                 return res.status(400).json("registration failed");
             } else {
-                res.json({
-                    data: newUser,
-                });
+                res.redirect('/login');
             }
         })
         console.log(newUser);
