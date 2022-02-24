@@ -16,6 +16,9 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true,
         trim: true
+    },
+    token: {
+        type: String
     }
 });
 
