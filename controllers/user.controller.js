@@ -1,4 +1,10 @@
 const User = require("../model/user");
+const bcrypt = require('bcryptjs');
+
+async function hashPassword (password) {
+    return  bcrypt.hashSync(password, 8);
+}
+
 
 exports.registrationForm = (req, res, next) => {
     res.render('signup');
@@ -9,7 +15,7 @@ exports.userCreate = async (req, res, next) => {
         const newUser = new User({
             email: req.body.email,
             name: req.body.name,
-            password: req.body.password
+            password: await hashPassword(req.body.password)
         });
         await newUser.save(err => {
             if (err) {
