@@ -19,16 +19,14 @@ exports.loginUser = async (req, res, next) => {
         const user = await User.findOne({email});
         if (!user) return next(new Error('password does not exist'));
 
+
         const validPassword = await validatePassword(password, user.password);
         if (!validPassword) return next(new Error('password is not correct'));
 
         const token = jwt.sign({userId: req.body._id}, secret, {expiresIn: "1d"}, {algorithm: "HS256"} );
 
         await User.findByIdAndUpdate(user._id, {token})
-        res.status(200).json({
-            data: { email: user.email},
-            token
-        })
+        res.status(200).redirect('/users');
         console.log(user);
     } catch (error) {
         next(error);

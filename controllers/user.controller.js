@@ -34,3 +34,14 @@ exports.userCreate = async (req, res, next) => {
     }
 };
 
+//exports.usersList = async (req, res, next) => {
+//    res.render('usersList.ejs');
+//}
+
+exports.getUsers = function(req, res) {
+    User.find( function(err, users) {
+        if (err) return;
+        res.render('usersList.ejs', { users: users });
+    });
+}
+
